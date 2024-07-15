@@ -1,4 +1,5 @@
 namespace SunamoText;
+
 /// <summary>
 /// Alternatives: TextFormatData - can check whether on position is expected char (letter, digit, etc.) but then not allow variable lenght of parsed
 /// </summary>
@@ -12,7 +13,7 @@ public class FormatOfString
     /// <returns></returns>
     public static List<string> GetParsedParts(string v1, string v2)
     {
-        var vb = v2.Split('|'); //SHSplit.Split(v2, AllStrings.verbar);
+        var vb = v2.Split('|'); //SHSplit.SplitMore(v2, AllStrings.verbar);
 
         if (vb[0] == v1)
         {
@@ -21,7 +22,7 @@ public class FormatOfString
 
         if (SH.ContainsAll(v1, vb))
         {
-            var result = v1.Split(vb.ToArray(), StringSplitOptions.RemoveEmptyEntries).ToList();// SHSplit.Split(v1, vb.ToArray());
+            var result = v1.Split(vb.ToArray(), StringSplitOptions.RemoveEmptyEntries).ToList();// SHSplit.SplitMore(v1, vb.ToArray());
             return result;
         }
 
