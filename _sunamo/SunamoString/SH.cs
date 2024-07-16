@@ -1,4 +1,5 @@
 namespace SunamoText._sunamo.SunamoString;
+
 internal class SH
 {
     internal static bool MatchWildcard(string name, string mask)
