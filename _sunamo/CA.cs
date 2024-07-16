@@ -1,4 +1,4 @@
-//namespace SunamoText._sunamo.SunamoExceptions._AddedToAllCsproj;
+namespace SunamoText._sunamo;
 
 internal class CA
 {
