@@ -2,7 +2,7 @@ namespace SunamoText;
 
 public class UnicodeHelper
 {
-    public static StringBuilder sb = new StringBuilder();
+    public static StringBuilder sb = new();
 
     public static StringBuilder DeescapeDecodeUnicode(string str)
     {

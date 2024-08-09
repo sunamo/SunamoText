@@ -1,12 +1,13 @@
 namespace SunamoText;
 
 /// <summary>
-/// Alternatives: TextFormatData - can check whether on position is expected char (letter, digit, etc.) but then not allow variable lenght of parsed
+///     Alternatives: TextFormatData - can check whether on position is expected char (letter, digit, etc.) but then not
+///     allow variable lenght of parsed
 /// </summary>
 public class FormatOfString
 {
     /// <summary>
-    /// A2 = {Width=|, Height=|}
+    ///     A2 = {Width=|, Height=|}
     /// </summary>
     /// <param name="v1"></param>
     /// <param name="v2"></param>
@@ -15,14 +16,12 @@ public class FormatOfString
     {
         var vb = v2.Split('|'); //SHSplit.SplitMore(v2, AllStrings.verbar);
 
-        if (vb[0] == v1)
-        {
-            return new List<string>();
-        }
+        if (vb[0] == v1) return new List<string>();
 
         if (SH.ContainsAll(v1, vb))
         {
-            var result = v1.Split(vb.ToArray(), StringSplitOptions.RemoveEmptyEntries).ToList();// SHSplit.SplitMore(v1, vb.ToArray());
+            var result = v1.Split(vb.ToArray(), StringSplitOptions.RemoveEmptyEntries)
+                .ToList(); // SHSplit.SplitMore(v1, vb.ToArray());
             return result;
         }
 
@@ -40,7 +39,7 @@ public class FormatOfString
 
         var vb = "|";
 
-        int countOfVerbar = SH.OccurencesOfStringIn(format, vb);
+        var countOfVerbar = SH.OccurencesOfStringIn(format, vb);
         //countOfVerbar++;
 
         //if (format.StartsWith(vb))
