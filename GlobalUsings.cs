@@ -3,7 +3,7 @@ global using System.Text;
 global using System.Collections;
 global using System.Collections.Generic;
 global using System;
-global using SunamoText._sunamo.SunamoValues;
+global using SunamoText;
 global using SunamoText._sunamo.SunamoEnums.Enums;
 global using SunamoText._sunamo.SunamoExceptions;
 global using System.Diagnostics;

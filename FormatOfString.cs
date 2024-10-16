@@ -14,7 +14,7 @@ public class FormatOfString
     /// <returns></returns>
     public static List<string> GetParsedParts(string v1, string v2)
     {
-        var vb = v2.Split('|'); //SHSplit.SplitMore(v2, AllStrings.verbar);
+        var vb = v2.Split('|'); //SHSplit.SplitMore(v2, "|");
 
         if (vb[0] == v1) return new List<string>();
 
