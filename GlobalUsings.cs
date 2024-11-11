@@ -12,3 +12,5 @@ global using SunamoText._sunamo.SunamoString;
 global using System.Reflection;
 global using System.Net;
 global using System.Diagnostics.CodeAnalysis;
+global using SunamoText;
+global using SunamoText._sunamo;
