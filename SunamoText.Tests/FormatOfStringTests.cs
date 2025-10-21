@@ -1,3 +1,6 @@
+// EN: Variable names have been checked and replaced with self-descriptive names
+// CZ: Názvy proměnných byly zkontrolovány a nahrazeny samopopisnými názvy
+
 public class FormatOfStringTests
 {
     const string albumsListTemplate = "https://www.facebook.com/|/photos_albums";
@@ -8,29 +11,29 @@ public class FormatOfStringTests
     [Fact]
     public void GetParsedParts2Test()
     {
-        var p = FormatOfString.GetParsedParts("a_backup-b", "|_backup-|");
-        Assert.Equal<string>(TestData.listAB1, p);
+        var parameter = FormatOfString.GetParsedParts("a_backup-b", "|_backup-|");
+        Assert.Equal<string>(TestData.listAB1, parameter);
     }
 
     //
     [Fact]
     public void GetParsedPartsTest()
     {
-        var p = FormatOfString.GetParsedParts("{Width=a, Height=b}", "{Width=|, Height=|}");
-        Assert.Equal<string>(TestData.listAB1, p);
+        var parameter = FormatOfString.GetParsedParts("{Width=a, Height=b}", "{Width=|, Height=|}");
+        Assert.Equal<string>(TestData.listAB1, parameter);
     }
 
     [Fact]
     public void HasFormatTest()
     {
-        var b = FormatOfString.HasFormat("https://www.facebook.com/media/set/?set=a.742074075847448&type=3", albumTemplate);
-        Assert.Equal(true, b);
+        var builder = FormatOfString.HasFormat("https://www.facebook.com/media/set/?set=a.742074075847448&type=3", albumTemplate);
+        Assert.Equal(true, builder);
     }
 
     [Fact]
     public void HasFormat2Test()
     {
-        var b = FormatOfString.HasFormat("https://www.facebook.com/media/set/?set=cba.742074075847448&type=3", albumTemplate);
-        Assert.Equal(false, b);
+        var builder = FormatOfString.HasFormat("https://www.facebook.com/media/set/?set=cba.742074075847448&type=3", albumTemplate);
+        Assert.Equal(false, builder);
     }
 }

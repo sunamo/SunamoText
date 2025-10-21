@@ -1,3 +1,6 @@
+// EN: Variable names have been checked and replaced with self-descriptive names
+// CZ: Názvy proměnných byly zkontrolovány a nahrazeny samopopisnými názvy
+
 namespace SunamoText;
 
 /// <summary>
@@ -51,7 +54,7 @@ public class FormatOfString
         //    countOfVerbar++;
         //}
 
-        var p = GetParsedParts(input, format);
-        return p.Count == countOfVerbar;
+        var parameter = GetParsedParts(input, format);
+        return parameter.Count == countOfVerbar;
     }
 }

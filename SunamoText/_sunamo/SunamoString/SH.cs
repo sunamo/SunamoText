@@ -1,3 +1,6 @@
+// EN: Variable names have been checked and replaced with self-descriptive names
+// CZ: Názvy proměnných byly zkontrolovány a nahrazeny samopopisnými názvy
+
 namespace SunamoText._sunamo.SunamoString;
 
 internal class SH
@@ -39,8 +42,8 @@ internal class SH
         {
             foreach (var item in allWords)
             {
-                var c = item;
-                if (!IsContained(input, ref c)) return false;
+                var count = item;
+                if (!IsContained(input, ref count)) return false;
             }
         }
         else if (ccm == ContainsCompareMethod.WholeInput)

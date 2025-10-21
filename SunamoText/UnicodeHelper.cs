@@ -1,12 +1,15 @@
+// EN: Variable names have been checked and replaced with self-descriptive names
+// CZ: Názvy proměnných byly zkontrolovány a nahrazeny samopopisnými názvy
+
 namespace SunamoText;
 
 public class UnicodeHelper
 {
-    public static StringBuilder sb = new();
+    public static StringBuilder stringBuilder = new();
 
     public static StringBuilder DeescapeDecodeUnicode(string str)
     {
-        sb.Clear();
+        stringBuilder.Clear();
         // var splitted = Regex.Split(str, @"\\u([a-fA-F\d]{4})");
         //  
         // foreach (var s in splitted)
@@ -16,26 +19,26 @@ public class UnicodeHelper
         //         if (s.Length == 4)
         //         {
         //             var decoded = ((char)Convert.ToUInt16(s, 16)).ToString();
-        //             sb.Append(decoded);
+        //             stringBuilder.Append(decoded);
         //         }
         //         else
         //         {
-        //             sb.Append(s);
+        //             stringBuilder.Append(s);
         //         }
         //     }
-        //     catch (Exception e)
+        //     catch (Exception exception)
         //     {
-        //         sb.Append(s);
+        //         stringBuilder.Append(s);
         //     }
         // }
         //
-        // return sb;
+        // return stringBuilder;
 
-        sb.Append(Regex.Replace(
+        stringBuilder.Append(Regex.Replace(
             str,
             @"\\[Uu]([0-9A-Fa-f]{4})",
             m => char.ToString(
                 (char)ushort.Parse(m.Groups[1].Value, NumberStyles.AllowHexSpecifier))));
-        return sb;
+        return stringBuilder;
     }
 }
