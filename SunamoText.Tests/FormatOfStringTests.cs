@@ -12,7 +12,8 @@ public class FormatOfStringTests
     public void GetParsedParts2Test()
     {
         var parameter = FormatOfString.GetParsedParts("a_backup-b", "|_backup-|");
-        Assert.Equal<string>(TestData.listAB1, parameter);
+        var expected = new List<string> { "a", "b" };
+        Assert.Equal<string>(expected, parameter);
     }
 
     //
@@ -20,20 +21,21 @@ public class FormatOfStringTests
     public void GetParsedPartsTest()
     {
         var parameter = FormatOfString.GetParsedParts("{Width=a, Height=b}", "{Width=|, Height=|}");
-        Assert.Equal<string>(TestData.listAB1, parameter);
+        var expected = new List<string> { "a", "b" };
+        Assert.Equal<string>(expected, parameter);
     }
 
     [Fact]
     public void HasFormatTest()
     {
         var builder = FormatOfString.HasFormat("https://www.facebook.com/media/set/?set=a.742074075847448&type=3", albumTemplate);
-        Assert.Equal(true, builder);
+        Assert.True(builder);
     }
 
     [Fact]
     public void HasFormat2Test()
     {
         var builder = FormatOfString.HasFormat("https://www.facebook.com/media/set/?set=cba.742074075847448&type=3", albumTemplate);
-        Assert.Equal(false, builder);
+        Assert.False(builder);
     }
 }
