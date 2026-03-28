@@ -1,85 +1,122 @@
 namespace SunamoText._sunamo.SunamoString;
 
+/// <summary>
+/// Internal string helper methods for pattern matching and containment checks.
+/// </summary>
 internal class SH
 {
-    internal static bool MatchWildcard(string name, string mask)
+    /// <summary>
+    /// Checks whether <paramref name="text"/> matches the given wildcard <paramref name="pattern"/>
+    /// using ? for single character and * for multiple characters.
+    /// </summary>
+    /// <param name="text">The text to match against.</param>
+    /// <param name="pattern">The wildcard pattern.</param>
+    /// <returns>True if the text matches the pattern.</returns>
+    internal static bool MatchWildcard(string text, string pattern)
     {
-        return IsMatchRegex(name, mask, '?', '*');
+        return IsMatchRegex(text, pattern, '?', '*');
     }
 
-    private static bool IsMatchRegex(string str, string pat, char singleWildcard, char multipleWildcard)
+    /// <summary>
+    /// Checks whether <paramref name="text"/> matches the given <paramref name="pattern"/>
+    /// using regex-based wildcard matching.
+    /// </summary>
+    /// <param name="text">The text to match.</param>
+    /// <param name="pattern">The pattern with wildcard characters.</param>
+    /// <param name="singleWildcard">Character representing a single-character wildcard.</param>
+    /// <param name="multipleWildcard">Character representing a multiple-character wildcard.</param>
+    /// <returns>True if the text matches the pattern.</returns>
+    private static bool IsMatchRegex(string text, string pattern, char singleWildcard, char multipleWildcard)
     {
-        // If I compared .vs with .vs, return false before
-        if (str == pat) return true;
+        if (text == pattern) return true;
 
         var escapedSingle = Regex.Escape(new string(singleWildcard, 1));
         var escapedMultiple = Regex.Escape(new string(multipleWildcard, 1));
-        pat = Regex.Escape(pat);
-        pat = pat.Replace(escapedSingle, ".");
-        pat = "^" + pat.Replace(escapedMultiple, ".*") + "$";
-        var reg = new Regex(pat);
-        return reg.IsMatch(str);
+        pattern = Regex.Escape(pattern);
+        pattern = pattern.Replace(escapedSingle, ".");
+        pattern = "^" + pattern.Replace(escapedMultiple, ".*") + "$";
+        var regex = new Regex(pattern);
+        return regex.IsMatch(text);
     }
 
-    internal static int OccurencesOfStringIn(string source, string p_2)
+    /// <summary>
+    /// Counts how many times <paramref name="substring"/> occurs in <paramref name="text"/>.
+    /// </summary>
+    /// <param name="text">The source text to search in.</param>
+    /// <param name="substring">The substring to count occurrences of.</param>
+    /// <returns>The number of occurrences.</returns>
+    internal static int OccurencesOfStringIn(string text, string substring)
     {
-        return source.Split(new[] { p_2 }, StringSplitOptions.None).Length - 1;
+        return text.Split(new[] { substring }, StringSplitOptions.None).Length - 1;
     }
 
-    internal static bool ContainsAll(string input, IList<string> allWords,
-        ContainsCompareMethod ccm = ContainsCompareMethod.WholeInput)
+    /// <summary>
+    /// Checks whether <paramref name="text"/> contains all strings from <paramref name="list"/>.
+    /// </summary>
+    /// <param name="text">The text to search in.</param>
+    /// <param name="list">The list of strings that must all be contained.</param>
+    /// <param name="compareMethod">The comparison method to use.</param>
+    /// <returns>True if all strings are contained in the text.</returns>
+    internal static bool ContainsAll(string text, IList<string> list,
+        ContainsCompareMethod compareMethod = ContainsCompareMethod.WholeInput)
     {
-        if (ccm == ContainsCompareMethod.SplitToWords)
+        if (compareMethod == ContainsCompareMethod.SplitToWords)
         {
-            foreach (var item in allWords)
-                if (!input.Contains(item))
+            foreach (var item in list)
+                if (!text.Contains(item))
                     return false;
         }
-        else if (ccm == ContainsCompareMethod.Negations)
+        else if (compareMethod == ContainsCompareMethod.Negations)
         {
-            foreach (var item in allWords)
+            foreach (var item in list)
             {
-                var count = item;
-                if (!IsContained(input, ref count)) return false;
+                var searchPattern = item;
+                if (!IsContained(text, ref searchPattern)) return false;
             }
         }
-        else if (ccm == ContainsCompareMethod.WholeInput)
+        else if (compareMethod == ContainsCompareMethod.WholeInput)
         {
-            foreach (var item in allWords)
-                if (!input.Contains(item))
+            foreach (var item in list)
+                if (!text.Contains(item))
                     return false;
         }
 
         return true;
     }
 
-    internal static bool IsContained(string item, ref string contains)
+    /// <summary>
+    /// Checks whether <paramref name="text"/> contains the given <paramref name="pattern"/>,
+    /// supporting negation patterns prefixed with '!'.
+    /// </summary>
+    /// <param name="text">The text to search in.</param>
+    /// <param name="pattern">The search pattern, possibly prefixed with '!' for negation. Updated to the pattern without prefix.</param>
+    /// <returns>True if the containment check passes (including negation logic).</returns>
+    internal static bool IsContained(string text, ref string pattern)
     {
-        var (negation, contains2) = IsNegationTuple(contains);
-        contains = contains2;
+        var (isNegation, patternWithoutPrefix) = IsNegationTuple(pattern);
+        pattern = patternWithoutPrefix;
 
-        if (negation && item.Contains(contains))
+        if (isNegation && text.Contains(pattern))
             return false;
-        if (!negation && !item.Contains(contains)) return false;
+        if (!isNegation && !text.Contains(pattern)) return false;
 
         return true;
     }
 
-
-    internal static (bool, string) IsNegationTuple(string contains)
+    /// <summary>
+    /// Determines whether the given <paramref name="pattern"/> starts with a negation prefix '!'
+    /// and returns the pattern without the prefix.
+    /// </summary>
+    /// <param name="pattern">The pattern to check for negation.</param>
+    /// <returns>A tuple of (isNegation, patternWithoutPrefix).</returns>
+    internal static (bool, string) IsNegationTuple(string pattern)
     {
-        if (contains[0] == '!')
+        if (pattern[0] == '!')
         {
-            contains = contains.Substring(1);
-            return (true, contains);
+            pattern = pattern.Substring(1);
+            return (true, pattern);
         }
 
-        return (false, contains);
+        return (false, pattern);
     }
-
-
-
-
-
-
 }

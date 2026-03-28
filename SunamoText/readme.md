@@ -1,20 +1,38 @@
-### SunamoText
+# SunamoText
 
-Part of PlatformIndependentNuGetPackages:
+Working with text, e.g. converting decoded unicode strings `\u{code}` to one character.
 
-- [nuget.org](https://www.nuget.org/profiles/sunamo)
-- [github.org](https://github.com/sunamo/PlatformIndependentNuGetPackages)
+## Overview
 
-Another links:
+SunamoText is part of the Sunamo package ecosystem, providing modular, platform-independent utilities for .NET development.
 
+### Key Classes
+
+- **FormatOfString** - Parsing and validating string formats using pipe-delimited templates.
+- **UnicodeHelper** - Decoding Unicode escape sequences in strings.
+
+### Key Methods
+
+- `GetParsedParts(text, format)` - Extracts variable parts from text using a pipe-delimited format template.
+- `HasFormat(text, format, isUsingWildcard)` - Checks whether text matches a given pipe-delimited format.
+- `DeescapeDecodeUnicode(text)` - Decodes `\uXXXX` escape sequences into their character representations.
+
+## Installation
+
+```bash
+dotnet add package SunamoText
+```
+
+## Links
+
+- [NuGet](https://www.nuget.org/profiles/sunamo)
+- [GitHub](https://github.com/sunamo/PlatformIndependentNuGetPackages)
 - [Developer site](https://sunamo.cz)
 
-Request for new features / bug report / etc: [Mail](mailto:radek.jancik@sunamo.cz) or on GitHub
 ## Target Frameworks
 
-**TargetFrameworks:** `net10.0;net9.0;net8.0`
+`net10.0;net9.0;net8.0`
 
-**Reason:** Code uses C# 12.0 features (collection expressions, primary constructors) or dependencies requiring .NET 8.0+:
-- Collection expressions `[]` syntax requires C# 12.0 (net8.0+)
-- Primary constructors require C# 12.0 (net8.0+) 
-- Entity Framework Core 9.x requires net8.0+
+## License
+
+MIT

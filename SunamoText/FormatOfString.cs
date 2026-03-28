@@ -1,57 +1,56 @@
 namespace SunamoText;
 
 /// <summary>
-///     Alternatives: TextFormatData - can check whether on position is expected char (letter, digit, etc.) but then not
-///     allow variable lenght of parsed
+/// Provides methods for parsing and validating string formats using pipe-delimited templates.
+/// Alternatives: TextFormatData - can check whether on position is expected char (letter, digit, etc.) but then not
+/// allow variable length of parsed.
 /// </summary>
 public class FormatOfString
 {
     /// <summary>
-    ///     A2 = {Width=|, Height=|}
+    /// Parses variable parts from <paramref name="text"/> using pipe-delimited <paramref name="format"/>.
+    /// For example, format "{Width=|, Height=|}" applied to "{Width=100, Height=200}" returns ["100", "200"].
     /// </summary>
-    /// <param name="v1"></param>
-    /// <param name="v2"></param>
-    /// <returns></returns>
-    public static List<string> GetParsedParts(string v1, string v2)
+    /// <param name="text">The input text to parse.</param>
+    /// <param name="format">The pipe-delimited format template where | marks variable parts.</param>
+    /// <returns>List of parsed variable parts, or empty list if format does not match.</returns>
+    public static List<string> GetParsedParts(string text, string format)
     {
-        var vb = v2.Split('|'); //SHSplit.Split(v2, "|");
+        var formatParts = format.Split('|');
 
-        if (vb[0] == v1) return new List<string>();
+        if (formatParts[0] == text) return new List<string>();
 
-        if (SH.ContainsAll(v1, vb))
+        if (SH.ContainsAll(text, formatParts))
         {
-            var result = v1.Split(vb.ToArray(), StringSplitOptions.RemoveEmptyEntries)
-                .ToList(); // SHSplit.Split(v1, vb.ToArray());
+            var result = text.Split(formatParts.ToArray(), StringSplitOptions.RemoveEmptyEntries)
+                .ToList();
             return result;
         }
 
         return new List<string>();
     }
 
-    public static bool HasFormat(string input, string format, bool useWildcard = false)
+    /// <summary>
+    /// Checks whether <paramref name="text"/> matches the given pipe-delimited <paramref name="format"/>.
+    /// </summary>
+    /// <param name="text">The input text to validate.</param>
+    /// <param name="format">The pipe-delimited format template.</param>
+    /// <param name="isUsingWildcard">When true, pipes are replaced with wildcards for pattern matching.</param>
+    /// <returns>True if the text matches the format; otherwise false.</returns>
+    public static bool HasFormat(string text, string format, bool isUsingWildcard = false)
     {
-        if (useWildcard)
+        if (isUsingWildcard)
         {
-            format = format.Replace("|", "*");
-            var result = SH.MatchWildcard(input, format);
+            format = format.Replace('|', '*');
+            var result = SH.MatchWildcard(text, format);
             return result;
         }
 
-        var vb = "|";
+        var verticalBar = "|";
 
-        var countOfVerbar = SH.OccurencesOfStringIn(format, vb);
-        //countOfVerbar++;
+        var verticalBarCount = SH.OccurencesOfStringIn(format, verticalBar);
 
-        //if (format.StartsWith(vb))
-        //{
-        //    countOfVerbar++;
-        //}
-        //if (format.EndsWith(vb))
-        //{
-        //    countOfVerbar++;
-        //}
-
-        var parameter = GetParsedParts(input, format);
-        return parameter.Count == countOfVerbar;
+        var parsedParts = GetParsedParts(text, format);
+        return parsedParts.Count == verticalBarCount;
     }
 }

@@ -1,41 +1,29 @@
 namespace SunamoText;
 
+/// <summary>
+/// Provides utility methods for working with Unicode escape sequences in strings.
+/// </summary>
 public class UnicodeHelper
 {
-    public static StringBuilder stringBuilder = new();
+    /// <summary>
+    /// Shared StringBuilder instance used for building decoded results.
+    /// </summary>
+    public static StringBuilder ResultStringBuilder { get; set; } = new();
 
-    public static StringBuilder DeescapeDecodeUnicode(string str)
+    /// <summary>
+    /// Decodes Unicode escape sequences (e.g. \u00E9) in the given <paramref name="text"/> into their character representations.
+    /// </summary>
+    /// <param name="text">The input text containing Unicode escape sequences to decode.</param>
+    /// <returns>A StringBuilder containing the decoded text.</returns>
+    public static StringBuilder DeescapeDecodeUnicode(string text)
     {
-        stringBuilder.Clear();
-        // var splitted = Regex.Split(str, @"\\u([a-fA-F\d]{4})");
-        //  
-        // foreach (var s in splitted)
-        // {
-        //     try
-        //     {
-        //         if (s.Length == 4)
-        //         {
-        //             var decoded = ((char)Convert.ToUInt16(s, 16)).ToString();
-        //             stringBuilder.Append(decoded);
-        //         }
-        //         else
-        //         {
-        //             stringBuilder.Append(s);
-        //         }
-        //     }
-        //     catch (Exception exception)
-        //     {
-        //         stringBuilder.Append(s);
-        //     }
-        // }
-        //
-        // return stringBuilder;
+        ResultStringBuilder.Clear();
 
-        stringBuilder.Append(Regex.Replace(
-            str,
+        ResultStringBuilder.Append(Regex.Replace(
+            text,
             @"\\[Uu]([0-9A-Fa-f]{4})",
-            m => char.ToString(
-                (char)ushort.Parse(m.Groups[1].Value, NumberStyles.AllowHexSpecifier))));
-        return stringBuilder;
+            match => char.ToString(
+                (char)ushort.Parse(match.Groups[1].Value, NumberStyles.AllowHexSpecifier))));
+        return ResultStringBuilder;
     }
 }

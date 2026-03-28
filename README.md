@@ -1,23 +1,21 @@
 # SunamoText
 
-Working with text, e.g. converting decoded unicode strings \{code} to one character
+Working with text, e.g. converting decoded unicode strings `\u{code}` to one character.
 
 ## Overview
 
 SunamoText is part of the Sunamo package ecosystem, providing modular, platform-independent utilities for .NET development.
 
-## Main Components
-
 ### Key Classes
 
-- **FormatOfString**
-- **UnicodeHelper**
+- **FormatOfString** - Parsing and validating string formats using pipe-delimited templates.
+- **UnicodeHelper** - Decoding Unicode escape sequences in strings.
 
 ### Key Methods
 
-- `GetParsedParts()`
-- `HasFormat()`
-- `DeescapeDecodeUnicode()`
+- `GetParsedParts(text, format)` - Extracts variable parts from text using a pipe-delimited format template.
+- `HasFormat(text, format, isUsingWildcard)` - Checks whether text matches a given pipe-delimited format.
+- `DeescapeDecodeUnicode(text)` - Decodes `\uXXXX` escape sequences into their character representations.
 
 ## Installation
 
@@ -27,20 +25,12 @@ dotnet add package SunamoText
 
 ## Dependencies
 
-- **Microsoft.Extensions.Logging.Abstractions** (v9.0.3)
+- **Microsoft.Extensions.Logging.Abstractions**
 
-## Package Information
+## Target Frameworks
 
-- **Package Name**: SunamoText
-- **Version**: 25.3.29.1
-- **Target Framework**: net9.0
-- **Category**: Platform-Independent NuGet Package
-- **Source Files**: 8
-
-## Related Packages
-
-This package is part of the Sunamo package ecosystem. For more information about related packages, visit the main repository.
+`net10.0;net9.0;net8.0`
 
 ## License
 
-See the repository root for license information.
+MIT

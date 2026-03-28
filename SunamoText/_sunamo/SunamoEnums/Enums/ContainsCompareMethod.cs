@@ -1,7 +1,7 @@
 namespace SunamoText._sunamo.SunamoEnums.Enums;
 
 /// <summary>
-///     Used in SunamoCollectionsGenericStore + SunamoCollections
+///     Used in SunamoCollectionsGenericStore + SunamoCollections.
 /// </summary>
 internal enum ContainsCompareMethod
 {
