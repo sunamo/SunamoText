@@ -1,15 +1,10 @@
 namespace SunamoText._sunamo.SunamoEnums.Enums;
 
-/// <summary>
-///     Used in SunamoCollectionsGenericStore + SunamoCollections.
-/// </summary>
+// Used in SunamoCollectionsGenericStore + SunamoCollections.
 internal enum ContainsCompareMethod
 {
     WholeInput,
     SplitToWords,
-
-    /// <summary>
-    ///     split to words and check for ! at [0]
-    /// </summary>
+    // split to words and check for ! at [0]
     Negations
 }

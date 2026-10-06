@@ -1,5 +1,10 @@
 # SunamoText
 
+## Short description
+
+Knihovna pro práci s textem, například převod dekódovaných unicode sekvencí \u{kód} na jeden znak. Součást sbírky pinp s testy a Runnerem.
+
+
 Working with text, e.g. converting decoded unicode strings `\u{code}` to one character.
 
 ## Overview
