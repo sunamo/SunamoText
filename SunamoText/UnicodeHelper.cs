@@ -1,9 +1,19 @@
 namespace SunamoText;
 
+/// <summary>
+/// Represents the unicode helper type.
+/// </summary>
 public class UnicodeHelper
 {
+    /// <summary>
+    /// Gets or sets the result string builder.
+    /// </summary>
     public static StringBuilder ResultStringBuilder { get; set; } = new();
 
+    /// <summary>
+    /// Deescape decode unicode.
+    /// </summary>
+    /// <returns>The deescape decode unicode result.</returns>
     public static StringBuilder DeescapeDecodeUnicode(string text)
     {
         ResultStringBuilder.Clear();

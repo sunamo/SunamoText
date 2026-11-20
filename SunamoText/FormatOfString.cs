@@ -2,8 +2,17 @@ namespace SunamoText;
 
 // Alternatives: TextFormatData - can check whether on position is expected char (letter, digit, etc.) but then not
 // allow variable length of parsed.
+/// <summary>
+/// Represents the format of string type.
+/// </summary>
 public class FormatOfString
 {
+    /// <summary>
+    /// Get parsed parts.
+    /// </summary>
+    /// <param name="text">The text.</param>
+    /// <param name="format">The format.</param>
+    /// <returns>The get parsed parts result.</returns>
     public static List<string> GetParsedParts(string text, string format)
     {
         var formatParts = format.Split('|');
@@ -20,6 +29,13 @@ public class FormatOfString
         return new List<string>();
     }
 
+    /// <summary>
+    /// Has format.
+    /// </summary>
+    /// <param name="text">The text.</param>
+    /// <param name="format">The format.</param>
+    /// <param name="isUsingWildcard">The is using wildcard.</param>
+    /// <returns>The has format result.</returns>
     public static bool HasFormat(string text, string format, bool isUsingWildcard = false)
     {
         if (isUsingWildcard)
